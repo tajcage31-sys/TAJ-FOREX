@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casino Taj Pokhara - Foreign Exchange</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #190204;
+      --bg-primary: #3b070d;
+      --bg-card: rgba(255, 255, 255, 0.05);
+      --border-card: rgba(255, 255, 255, 0.12);
+      --gold-accent: #f5d07c;
+      --text-white: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.7);
+      --danger: #ff4d4d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 50% 15%, #4f0a12 0%, var(--bg-primary) 50%, var(--bg-dark) 100%);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    /* Admin Toolbar */
+    .admin-bar {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .btn-admin {
+      background: rgba(245, 208, 124, 0.15);
+      border: 1px solid var(--gold-accent);
+      color: var(--gold-accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-admin:hover {
+      background: var(--gold-accent);
+      color: #000;
+    }
+
+    /* Billboard Display */
+    .billboard-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      background: rgba(35, 3, 7, 0.88);
+      backdrop-filter: blur(25px);
+      border: 1.5px solid rgba(245, 208, 124, 0.25);
+      border-radius: 28px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 50px rgba(200, 15, 35, 0.15);
+      padding: 34px 28px 24px;
+    }
+
+    .header {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-card);
+      margin-bottom: 20px;
+    }
+
+    .casino-badge {
+      display: inline-block;
+      background: rgba(245, 208, 124, 0.1);
+      border: 1px solid rgba(245, 208, 124, 0.35);
+      padding: 5px 20px;
+      border-radius: 50px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--gold-accent);
+      margin-bottom: 10px;
+    }
+
+    .billboard-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .display-date {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+    }
+
+    /* Table Headers */
+    .table-headers {
+      display: grid;
+      grid-template-columns: 2.2fr 1.2fr 1fr 2fr;
+      padding: 12px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--gold-accent);
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .header-right { text-align: right; }
+
+    /* Currency List */
+    .currency-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .currency-list::-webkit-scrollbar { width: 5px; }
+    .currency-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+    }
+
+    .currency-row {
+      display: grid;
+      grid-template-columns: 2.2fr 1.2fr 1fr 2fr;
+      align-items: center;
+      padding: 11px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .curr-name-box {
+      display: flex;
+      align
