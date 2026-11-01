@@ -2,481 +2,293 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casino Taj Pokhara - Foreign Exchange</title>
-  
+  <title>Casino Taj Pokhara - Forex Board</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    // ========================================================
+    // ✍️ CHANGE YOUR DAILY DATE & RATES HERE:
+    // ========================================================
+    const TODAY_DATE = "02 NOVEMBER 2026";
+
+    const RATES = {
+      USD: "149.00",
+      EUR: "166.00",
+      GBP: "200.00",
+      KWD: "480.00",
+      CHF: "180.00",
+      SGD: "116.00",
+      CAD: "106.00",
+      AUD: "104.00",
+      AED: "40.00",
+      QAR: "40.00",
+      SAR: "39.00",
+      MYR: "36.00",
+      CNY: "22.00",
+      DKK: "22.00",
+      HKD: "18.00",
+      SEK: "14.00",
+      THB: "3.00",
+      JPY: "0.90",
+      KRW: "0.10"
+    };
+    // ========================================================
+  </script>
 
   <style>
-    :root {
-      --bg-dark: #190204;
-      --bg-primary: #3b070d;
-      --bg-card: rgba(255, 255, 255, 0.05);
-      --border-card: rgba(255, 255, 255, 0.12);
-      --gold-accent: #f5d07c;
-      --text-white: #ffffff;
-      --text-dim: rgba(255, 255, 255, 0.7);
-      --danger: #ff4d4d;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Exact 720 x 1280 Vertical Billboard Canvas */
     body {
-      background: radial-gradient(circle at 50% 15%, #4f0a12 0%, var(--bg-primary) 50%, var(--bg-dark) 100%);
-      color: var(--text-white);
+      width: 720px;
+      height: 1280px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 15%, #4a0910 0%, #290408 55%, #140204 100%);
+      color: #ffffff;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 24px 16px;
-      overflow-x: hidden;
+      justify-content: space-between;
+      padding: 22px 20px 16px;
     }
 
-    /* Top Admin Button */
-    .admin-bar {
-      width: 100%;
-      max-width: 900px;
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 12px;
-    }
-
-    .btn-admin {
-      background: rgba(245, 208, 124, 0.15);
-      border: 1px solid var(--gold-accent);
-      color: var(--gold-accent);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-admin:hover {
-      background: var(--gold-accent);
-      color: #000;
-    }
-
-    /* Main Billboard Frame */
-    .billboard-container {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      background: rgba(35, 3, 7, 0.88);
-      backdrop-filter: blur(25px);
-      border: 1.5px solid rgba(245, 208, 124, 0.25);
-      border-radius: 28px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 50px rgba(200, 15, 35, 0.15);
-      padding: 34px 28px 24px;
-    }
-
+    /* Header */
     .header {
       text-align: center;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border-card);
-      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(245, 208, 124, 0.25);
     }
 
     .casino-badge {
       display: inline-block;
-      background: rgba(245, 208, 124, 0.1);
-      border: 1px solid rgba(245, 208, 124, 0.35);
-      padding: 5px 20px;
+      background: rgba(245, 208, 124, 0.12);
+      border: 1px solid rgba(245, 208, 124, 0.4);
+      padding: 4px 18px;
       border-radius: 50px;
       font-family: 'Cinzel', serif;
       font-size: 13px;
       letter-spacing: 3px;
-      color: var(--gold-accent);
-      margin-bottom: 10px;
+      color: #f5d07c;
+      margin-bottom: 6px;
     }
 
     .billboard-title {
       font-family: 'Cinzel', serif;
-      font-size: clamp(22px, 4vw, 36px);
+      font-size: 27px;
       font-weight: 800;
       letter-spacing: 2px;
-      margin-bottom: 8px;
+      color: #ffffff;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      margin-bottom: 4px;
     }
 
     .display-date {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 2px;
-      color: var(--gold-accent);
+      color: #f5d07c;
       text-transform: uppercase;
     }
 
-    /* Table */
+    /* Table Columns Header */
     .table-headers {
       display: grid;
-      grid-template-columns: 2.2fr 1.2fr 1fr 2fr;
-      padding: 12px 18px;
+      grid-template-columns: 2.2fr 1fr 0.8fr 1.8fr;
+      padding: 8px 14px;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.8px;
-      color: var(--gold-accent);
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      margin-bottom: 10px;
+      letter-spacing: 1.5px;
+      color: #f5d07c;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 8px;
+      margin: 10px 0 6px 0;
     }
 
     .header-right { text-align: right; }
 
+    /* 19 Currencies List - Perfectly Fitted (No Scrollbar) */
     .currency-list {
       display: flex;
       flex-direction: column;
-      gap: 7px;
-      max-height: 520px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .currency-list::-webkit-scrollbar { width: 5px; }
-    .currency-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
+      gap: 5px;
+      flex: 1;
+      justify-content: space-between;
     }
 
     .currency-row {
       display: grid;
-      grid-template-columns: 2.2fr 1.2fr 1fr 2fr;
+      grid-template-columns: 2.2fr 1fr 0.8fr 1.8fr;
       align-items: center;
-      padding: 11px 18px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-card);
-      border-radius: 12px;
+      padding: 7px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 8px;
       font-variant-numeric: tabular-nums;
     }
 
     .curr-name-box {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .flag-icon { font-size: 22px; }
+    .flag-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
 
     .curr-fullname {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
+      letter-spacing: 0.2px;
     }
 
     .curr-code {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--text-dim);
+      color: rgba(255, 255, 255, 0.75);
       background: rgba(255, 255, 255, 0.08);
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 2px 7px;
+      border-radius: 4px;
       width: fit-content;
     }
 
-    .curr-unit { font-size: 14px; color: var(--text-dim); }
+    .curr-unit {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+    }
 
     .curr-rate {
       text-align: right;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      color: var(--gold-accent);
+      color: #f5d07c;
+      letter-spacing: 0.5px;
     }
 
     .curr-rate small {
-      font-size: 11px;
-      color: var(--text-dim);
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
       margin-right: 4px;
     }
 
     /* Footer Marquee */
     .billboard-footer {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border-card);
+      padding-top: 10px;
+      border-top: 1px solid rgba(245, 208, 124, 0.25);
       text-align: center;
     }
 
     .notice-text {
-      font-size: 11.5px;
-      letter-spacing: 1.2px;
+      font-size: 10.5px;
+      letter-spacing: 1px;
       color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       text-transform: uppercase;
     }
 
     .ticker-wrapper {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 50px;
       overflow: hidden;
-      padding: 9px 0;
+      padding: 7px 0;
     }
 
     .ticker-content {
       display: inline-block;
       white-space: nowrap;
-      animation: ticker 25s linear infinite;
+      animation: ticker 22s linear infinite;
       font-family: 'Cinzel', serif;
-      font-size: 12px;
+      font-size: 11.5px;
       letter-spacing: 2px;
-      color: var(--gold-accent);
+      color: #f5d07c;
     }
 
     @keyframes ticker {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
-
-    /* Modal dialogs */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal-box {
-      background: #2b0509;
-      border: 1px solid var(--gold-accent);
-      border-radius: 20px;
-      max-width: 650px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .password-box { max-width: 380px; text-align: center; }
-
-    .input-group label {
-      display: block;
-      font-size: 12px;
-      color: var(--gold-accent);
-      margin-bottom: 4px;
-    }
-
-    .input-group input {
-      width: 100%;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 10px 12px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .input-group input:focus { border-color: var(--gold-accent); }
-
-    .error-msg {
-      color: var(--danger);
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .editor-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .btn-full {
-      width: 100%;
-      justify-content: center;
-      padding: 11px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Admin button -->
-  <div class="admin-bar">
-    <button class="btn-admin" onclick="promptPassword()">🔒 Change Date & Rates</button>
+  <!-- Top Header -->
+  <header class="header">
+    <div class="casino-badge">Casino Taj • Pokhara</div>
+    <h1 class="billboard-title">FOREIGN EXCHANGE RATES</h1>
+    <div class="display-date" id="billboard-date"></div>
+  </header>
+
+  <!-- Column Headers -->
+  <div class="table-headers">
+    <div>Currency</div>
+    <div>Code</div>
+    <div>Unit</div>
+    <div class="header-right">Buying (NPR)</div>
   </div>
 
-  <!-- The Billboard Screen -->
-  <div class="billboard-container">
-    
-    <header class="header">
-      <div class="casino-badge">Casino Taj • Pokhara</div>
-      <h1 class="billboard-title">FOREIGN EXCHANGE RATES</h1>
-      <div class="display-date" id="billboard-date">02 NOVEMBER 2026</div>
-    </header>
+  <!-- 19 Rates Grid -->
+  <div class="currency-list" id="currency-list"></div>
 
-    <div class="table-headers">
-      <div>Currency</div>
-      <div>Code</div>
-      <div>Unit</div>
-      <div class="header-right">Buying (NPR)</div>
-    </div>
-
-    <div class="currency-list" id="currency-list">
-      <!-- Default Rows -->
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇺🇸</span><span class="curr-fullname">US Dollar</span></div><div><span class="curr-code">USD</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-USD"><small>NPR</small>149.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇪🇺</span><span class="curr-fullname">Euro</span></div><div><span class="curr-code">EUR</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-EUR"><small>NPR</small>166.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇬🇧</span><span class="curr-fullname">Pound Sterling</span></div><div><span class="curr-code">GBP</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-GBP"><small>NPR</small>200.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇰🇼</span><span class="curr-fullname">Kuwaiti Dinar</span></div><div><span class="curr-code">KWD</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-KWD"><small>NPR</small>480.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇨🇭</span><span class="curr-fullname">Swiss Franc</span></div><div><span class="curr-code">CHF</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-CHF"><small>NPR</small>180.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇸🇬</span><span class="curr-fullname">Singapore Dollar</span></div><div><span class="curr-code">SGD</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-SGD"><small>NPR</small>116.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇨🇦</span><span class="curr-fullname">Canadian Dollar</span></div><div><span class="curr-code">CAD</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-CAD"><small>NPR</small>106.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇦🇺</span><span class="curr-fullname">Australian Dollar</span></div><div><span class="curr-code">AUD</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-AUD"><small>NPR</small>104.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇦🇪</span><span class="curr-fullname">UAE Dirham</span></div><div><span class="curr-code">AED</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-AED"><small>NPR</small>40.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇶🇦</span><span class="curr-fullname">Qatari Riyal</span></div><div><span class="curr-code">QAR</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-QAR"><small>NPR</small>40.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇸🇦</span><span class="curr-fullname">Saudi Riyal</span></div><div><span class="curr-code">SAR</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-SAR"><small>NPR</small>39.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇲🇾</span><span class="curr-fullname">Malaysian Ringgit</span></div><div><span class="curr-code">MYR</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-MYR"><small>NPR</small>36.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇨🇳</span><span class="curr-fullname">Chinese Yuan</span></div><div><span class="curr-code">CNY</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-CNY"><small>NPR</small>22.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇩🇰</span><span class="curr-fullname">Danish Krone</span></div><div><span class="curr-code">DKK</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-DKK"><small>NPR</small>22.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇭🇰</span><span class="curr-fullname">Hong Kong Dollar</span></div><div><span class="curr-code">HKD</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-HKD"><small>NPR</small>18.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇸🇪</span><span class="curr-fullname">Swedish Krona</span></div><div><span class="curr-code">SEK</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-SEK"><small>NPR</small>14.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇹🇭</span><span class="curr-fullname">Thai Baht</span></div><div><span class="curr-code">THB</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-THB"><small>NPR</small>3.00</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇯🇵</span><span class="curr-fullname">Japanese Yen</span></div><div><span class="curr-code">JPY</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-JPY"><small>NPR</small>0.90</div></div>
-      <div class="currency-row"><div class="curr-name-box"><span class="flag-icon">🇰🇷</span><span class="curr-fullname">South Korean Won</span></div><div><span class="curr-code">KRW</span></div><div class="curr-unit">1</div><div class="curr-rate" id="rate-KRW"><small>NPR</small>0.10</div></div>
-    </div>
-
-    <footer class="billboard-footer">
-      <div class="notice-text">⚠ All foreign currency exchange is final • No reversals processed</div>
-      <div class="ticker-wrapper">
-        <div class="ticker-content">
-          WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST RATES GUARANTEED
-        </div>
-      </div>
-    </footer>
-
-  </div>
-
-  <!-- Password Modal -->
-  <div class="modal-overlay" id="passwordModal">
-    <div class="modal-box password-box">
-      <div style="font-size: 32px;">🔐</div>
-      <h3 style="color:var(--gold-accent); font-family:'Cinzel';">Admin Security</h3>
-      <p style="font-size: 13px; color: var(--text-dim);">Enter admin password (Default: 7777)</p>
-      <div class="input-group">
-        <input type="password" id="admin-pass-input" placeholder="Password...">
-        <div class="error-msg" id="pass-error">Incorrect password!</div>
-      </div>
-      <div style="display:flex; gap:10px;">
-        <button class="btn-admin btn-full" style="background:transparent; color:#fff;" onclick="closeModal('passwordModal')">Cancel</button>
-        <button class="btn-admin btn-full" onclick="verifyPassword()">Unlock</button>
+  <!-- Bottom Notice & Ticker -->
+  <footer class="billboard-footer">
+    <div class="notice-text">⚠ All foreign currency exchange is final • No reversals processed</div>
+    <div class="ticker-wrapper">
+      <div class="ticker-content">
+        WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST RATES GUARANTEED • ENJOY YOUR EXPERIENCE
       </div>
     </div>
-  </div>
-
-  <!-- Editor Modal -->
-  <div class="modal-overlay" id="editorModal">
-    <div class="modal-box">
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
-        <h3 style="color:var(--gold-accent); font-family:'Cinzel';">Daily Rates & Date Editor</h3>
-        <button onclick="closeModal('editorModal')" style="background:transparent; border:none; color:#fff; font-size:22px; cursor:pointer;">✕</button>
-      </div>
-      <div class="input-group">
-        <label>Display Date</label>
-        <input type="text" id="edit-date-input" value="02 NOVEMBER 2026">
-      </div>
-      <div class="editor-grid" id="editor-grid-inputs"></div>
-      <button class="btn-admin btn-full" onclick="saveDailyChanges()">💾 Save & Update Display</button>
-    </div>
-  </div>
+  </footer>
 
   <script>
-    const currencies = [
-      { code: "USD", name: "US Dollar", rate: "149.00" },
-      { code: "EUR", name: "Euro", rate: "166.00" },
-      { code: "GBP", name: "Pound Sterling", rate: "200.00" },
-      { code: "KWD", name: "Kuwaiti Dinar", rate: "480.00" },
-      { code: "CHF", name: "Swiss Franc", rate: "180.00" },
-      { code: "SGD", name: "Singapore Dollar", rate: "116.00" },
-      { code: "CAD", name: "Canadian Dollar", rate: "106.00" },
-      { code: "AUD", name: "Australian Dollar", rate: "104.00" },
-      { code: "AED", name: "UAE Dirham", rate: "40.00" },
-      { code: "QAR", name: "Qatari Riyal", rate: "40.00" },
-      { code: "SAR", name: "Saudi Riyal", rate: "39.00" },
-      { code: "MYR", name: "Malaysian Ringgit", rate: "36.00" },
-      { code: "CNY", name: "Chinese Yuan", rate: "22.00" },
-      { code: "DKK", name: "Danish Krone", rate: "22.00" },
-      { code: "HKD", name: "Hong Kong Dollar", rate: "18.00" },
-      { code: "SEK", name: "Swedish Krona", rate: "14.00" },
-      { code: "THB", name: "Thai Baht", rate: "3.00" },
-      { code: "JPY", name: "Japanese Yen", rate: "0.90" },
-      { code: "KRW", name: "South Korean Won", rate: "0.10" }
+    const currencyInfo = [
+      { code: "USD", name: "US Dollar", flag: "🇺🇸" },
+      { code: "EUR", name: "Euro", flag: "🇪🇺" },
+      { code: "GBP", name: "Pound Sterling", flag: "🇬🇧" },
+      { code: "KWD", name: "Kuwaiti Dinar", flag: "🇰🇼" },
+      { code: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
+      { code: "SGD", name: "Singapore Dollar", flag: "🇸🇬" },
+      { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦" },
+      { code: "AUD", name: "Australian Dollar", flag: "🇦🇺" },
+      { code: "AED", name: "UAE Dirham", flag: "🇦🇪" },
+      { code: "QAR", name: "Qatari Riyal", flag: "🇶🇦" },
+      { code: "SAR", name: "Saudi Riyal", flag: "🇸🇦" },
+      { code: "MYR", name: "Malaysian Ringgit", flag: "🇲🇾" },
+      { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
+      { code: "DKK", name: "Danish Krone", flag: "🇩🇰" },
+      { code: "HKD", name: "Hong Kong Dollar", flag: "🇭🇰" },
+      { code: "SEK", name: "Swedish Krona", flag: "🇸🇪" },
+      { code: "THB", name: "Thai Baht", flag: "🇹🇭" },
+      { code: "JPY", name: "Japanese Yen", flag: "🇯🇵" },
+      { code: "KRW", name: "South Korean Won", flag: "🇰🇷" }
     ];
 
-    let currentPassword = localStorage.getItem('casino_pwd') || "7777";
-    let savedDate = localStorage.getItem('casino_date');
-    if (savedDate) document.getElementById('billboard-date').textContent = savedDate;
+    // Set Date
+    document.getElementById('billboard-date').textContent = TODAY_DATE;
 
-    // Load saved rates from memory if available
-    currencies.forEach(c => {
-      let savedRate = localStorage.getItem('rate_' + c.code);
-      if (savedRate) {
-        c.rate = savedRate;
-        let el = document.getElementById('rate-' + c.code);
-        if (el) el.innerHTML = '<small>NPR</small>' + savedRate;
-      }
+    // Render 19 items cleanly
+    const container = document.getElementById('currency-list');
+    currencyInfo.forEach(item => {
+      const rate = RATES[item.code] || "0.00";
+      const row = document.createElement('div');
+      row.className = 'currency-row';
+      row.innerHTML = `
+        <div class="curr-name-box">
+          <span class="flag-icon">${item.flag}</span>
+          <span class="curr-fullname">${item.name}</span>
+        </div>
+        <div><span class="curr-code">${item.code}</span></div>
+        <div class="curr-unit">1</div>
+        <div class="curr-rate"><small>NPR</small>${rate}</div>
+      `;
+      container.appendChild(row);
     });
-
-    function promptPassword() {
-      document.getElementById('passwordModal').style.display = 'flex';
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-
-    function verifyPassword() {
-      const input = document.getElementById('admin-pass-input').value;
-      if (input === currentPassword) {
-        closeModal('passwordModal');
-        openEditor();
-      } else {
-        document.getElementById('pass-error').style.display = 'block';
-      }
-    }
-
-    function openEditor() {
-      document.getElementById('edit-date-input').value = document.getElementById('billboard-date').textContent;
-      const grid = document.getElementById('editor-grid-inputs');
-      grid.innerHTML = '';
-      currencies.forEach(c => {
-        grid.innerHTML += `
-          <div class="input-group">
-            <label>${c.name} (${c.code})</label>
-            <input type="text" id="input-${c.code}" value="${c.rate}">
-          </div>
-        `;
-      });
-      document.getElementById('editorModal').style.display = 'flex';
-    }
-
-    function saveDailyChanges() {
-      const newDate = document.getElementById('edit-date-input').value;
-      document.getElementById('billboard-date').textContent = newDate;
-      localStorage.setItem('casino_date', newDate);
-
-      currencies.forEach(c => {
-        const val = document.getElementById('input-' + c.code).value;
-        c.rate = val;
-        localStorage.setItem('rate_' + c.code, val);
-        const el = document.getElementById('rate-' + c.code);
-        if (el) el.innerHTML = '<small>NPR</small>' + val;
-      });
-
-      closeModal('editorModal');
-    }
   </script>
 </body>
 </html>
