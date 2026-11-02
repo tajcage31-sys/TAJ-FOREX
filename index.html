@@ -9,12 +9,11 @@
 
   <script>
     // =========================================================================
-    // 🔗 PASTE YOUR PUBLISHED GOOGLE SHEET CSV LINK HERE:
-    // (If left empty, it will use the fallback rates below automatically)
+    // 🔗 PASTE YOUR GOOGLE SHEET CSV LINK HERE:
     // =========================================================================
-    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQD5yVDmGDHI75gPZURHrzf7JbmeFmvmwSVNBszzvn1gv9ncYbPV38srsZ6tIuwpWUHnoaZf2Ju81Xe/pub?output=csv"; 
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQD5yVDmGDHI75gPZURHrzf7JbmeFmvmwSVNBszzvn1gv9ncYbPV38srsZ6tIuwpWUHnoaZf2Ju81Xe/pubhtml"; 
 
-    // Default Fallback Rates (in case Google Sheet is not yet set)
+    // Fallback defaults
     let TODAY_DATE = "02 NOVEMBER 2026";
     let RATES = {
       USD: "149.00",
@@ -43,7 +42,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Exact 720 x 1280 Portrait Canvas */
+    /* Exact 720 x 1280 Canvas */
     body {
       width: 720px;
       height: 1280px;
@@ -58,7 +57,6 @@
       padding: 16px 18px 12px;
     }
 
-    /* Header */
     .header {
       text-align: center;
       padding-bottom: 8px;
@@ -96,7 +94,6 @@
       text-transform: uppercase;
     }
 
-    /* Column Headers */
     .table-headers {
       display: grid;
       grid-template-columns: 2.3fr 1fr 0.7fr 1.8fr;
@@ -113,7 +110,6 @@
 
     .header-right { text-align: right; }
 
-    /* 20 Currencies List - Perfectly Proportioned for 1280px */
     .currency-list {
       display: flex;
       flex-direction: column;
@@ -139,16 +135,8 @@
       gap: 10px;
     }
 
-    .flag-icon {
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .curr-fullname {
-      font-size: 13.5px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
+    .flag-icon { font-size: 18px; line-height: 1; }
+    .curr-fullname { font-size: 13.5px; font-weight: 600; }
 
     .curr-code {
       font-size: 11.5px;
@@ -160,10 +148,7 @@
       width: fit-content;
     }
 
-    .curr-unit {
-      font-size: 12.5px;
-      color: rgba(255, 255, 255, 0.65);
-    }
+    .curr-unit { font-size: 12.5px; color: rgba(255, 255, 255, 0.65); }
 
     .curr-rate {
       text-align: right;
@@ -180,7 +165,6 @@
       margin-right: 4px;
     }
 
-    /* Footer & Ticker */
     .billboard-footer {
       padding-top: 8px;
       border-top: 1px solid rgba(245, 208, 124, 0.25);
@@ -234,21 +218,18 @@
     <div class="header-right">Buying (NPR)</div>
   </div>
 
-  <div class="currency-list" id="currency-list">
-    <!-- 20 Currencies in Exact Sequence -->
-  </div>
+  <div class="currency-list" id="currency-list"></div>
 
   <footer class="billboard-footer">
     <div class="notice-text">⚠ All foreign currency exchange is final • No reversals processed</div>
     <div class="ticker-wrapper">
       <div class="ticker-content">
-        WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST EXCHANGE RATES GUARANTEED • ENJOY YOUR EXPERIENCE
+        WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST RATES GUARANTEED • ENJOY YOUR EXPERIENCE
       </div>
     </div>
   </footer>
 
   <script>
-    // Exact sequence from your board with corrected spellings
     const currencyInfo = [
       { code: "USD", name: "US Dollar", flag: "🇺🇸", unit: 1 },
       { code: "INR", name: "Indian Rupee", flag: "🇮🇳", unit: 1 },
@@ -294,30 +275,43 @@
       });
     }
 
-    // Auto-fetch from Google Sheets if URL is provided
+    // Fixed parser: Pulls Rate specifically from Column C (index 2)
     async function syncGoogleSheet() {
-      if (!GOOGLE_SHEET_CSV_URL) return;
+      if (!GOOGLE_SHEET_CSV_URL || GOOGLE_SHEET_CSV_URL.includes("PASTE_YOUR_LINK_HERE")) return;
       try {
-        const res = await fetch(GOOGLE_SHEET_CSV_URL + '&t=' + Date.now());
+        const res = await fetch(GOOGLE_SHEET_CSV_URL + (GOOGLE_SHEET_CSV_URL.includes('?') ? '&' : '?') + 't=' + Date.now());
         const csv = await res.text();
         const lines = csv.split('\n');
         
         lines.forEach(line => {
-          const [key, val] = line.split(',').map(s => s ? s.trim().replace(/"/g, '') : '');
-          if (key === 'DATE' && val) TODAY_DATE = val;
-          if (RATES[key] !== undefined && val) RATES[key] = val;
+          if (!line.trim()) return;
+          const parts = line.split(',').map(s => s ? s.trim().replace(/^["']|["']$/g, '') : '');
+          const code = parts[0]?.toUpperCase();
+
+          // Date is in Column B (parts[1])
+          if (code === 'DATE' && parts[1]) {
+            TODAY_DATE = parts[1];
+          } 
+          // Rate is in Column C (parts[2])
+          else if (code && RATES.hasOwnProperty(code)) {
+            const rawRate = parts[2];
+            if (rawRate !== undefined && rawRate !== '') {
+              const num = parseFloat(rawRate);
+              RATES[code] = !isNaN(num) ? num.toFixed(2) : rawRate;
+            }
+          }
         });
 
         renderBoard();
       } catch (err) {
-        console.log("Using cached rates");
+        console.error("Sheet sync error:", err);
       }
     }
 
     renderBoard();
-    if (GOOGLE_SHEET_CSV_URL) {
+    if (GOOGLE_SHEET_CSV_URL && !GOOGLE_SHEET_CSV_URL.includes("PASTE_YOUR_LINK_HERE")) {
       syncGoogleSheet();
-      setInterval(syncGoogleSheet, 30000); // Checks for sheet changes every 30 seconds
+      setInterval(syncGoogleSheet, 30000); // Auto-syncs every 30 seconds
     }
   </script>
 </body>
