@@ -8,39 +8,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
   <script>
-    // ========================================================
-    // ✍️ CHANGE YOUR DAILY DATE & RATES HERE:
-    // ========================================================
-    const TODAY_DATE = "02 NOVEMBER 2026";
+    // =========================================================================
+    // 🔗 PASTE YOUR PUBLISHED GOOGLE SHEET CSV LINK HERE:
+    // (If left empty, it will use the fallback rates below automatically)
+    // =========================================================================
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQD5yVDmGDHI75gPZURHrzf7JbmeFmvmwSVNBszzvn1gv9ncYbPV38srsZ6tIuwpWUHnoaZf2Ju81Xe/pub?output=csv"; 
 
-    const RATES = {
+    // Default Fallback Rates (in case Google Sheet is not yet set)
+    let TODAY_DATE = "02 NOVEMBER 2026";
+    let RATES = {
       USD: "149.00",
+      INR: "1.60",
       EUR: "166.00",
       GBP: "200.00",
-      KWD: "480.00",
-      CHF: "180.00",
-      SGD: "116.00",
-      CAD: "106.00",
-      AUD: "104.00",
-      AED: "40.00",
-      QAR: "40.00",
-      SAR: "39.00",
-      MYR: "36.00",
       CNY: "22.00",
-      DKK: "22.00",
-      HKD: "18.00",
-      SEK: "14.00",
-      THB: "3.00",
+      MYR: "36.00",
+      AED: "40.00",
       JPY: "0.90",
-      KRW: "0.10"
+      AUD: "104.00",
+      SGD: "116.00",
+      HKD: "18.00",
+      CAD: "106.00",
+      CHF: "180.00",
+      SAR: "39.00",
+      QAR: "40.00",
+      THB: "3.00",
+      KRW: "0.10",
+      SEK: "14.00",
+      DKK: "22.00",
+      KWD: "480.00"
     };
-    // ========================================================
   </script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Exact 720 x 1280 Vertical Billboard Canvas */
+    /* Exact 720 x 1280 Portrait Canvas */
     body {
       width: 720px;
       height: 1280px;
@@ -52,13 +55,13 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 22px 20px 16px;
+      padding: 16px 18px 12px;
     }
 
     /* Header */
     .header {
       text-align: center;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
       border-bottom: 1px solid rgba(245, 208, 124, 0.25);
     }
 
@@ -66,67 +69,67 @@
       display: inline-block;
       background: rgba(245, 208, 124, 0.12);
       border: 1px solid rgba(245, 208, 124, 0.4);
-      padding: 4px 18px;
+      padding: 3px 16px;
       border-radius: 50px;
       font-family: 'Cinzel', serif;
-      font-size: 13px;
-      letter-spacing: 3px;
+      font-size: 11px;
+      letter-spacing: 2.5px;
       color: #f5d07c;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .billboard-title {
       font-family: 'Cinzel', serif;
-      font-size: 27px;
+      font-size: 24px;
       font-weight: 800;
       letter-spacing: 2px;
       color: #ffffff;
       text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .display-date {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 2px;
       color: #f5d07c;
       text-transform: uppercase;
     }
 
-    /* Table Columns Header */
+    /* Column Headers */
     .table-headers {
       display: grid;
-      grid-template-columns: 2.2fr 1fr 0.8fr 1.8fr;
-      padding: 8px 14px;
-      font-size: 11px;
+      grid-template-columns: 2.3fr 1fr 0.7fr 1.8fr;
+      padding: 6px 14px;
+      font-size: 10.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: #f5d07c;
       background: rgba(0, 0, 0, 0.35);
-      border-radius: 8px;
-      margin: 10px 0 6px 0;
+      border-radius: 6px;
+      margin: 8px 0 4px 0;
     }
 
     .header-right { text-align: right; }
 
-    /* 19 Currencies List - Perfectly Fitted (No Scrollbar) */
+    /* 20 Currencies List - Perfectly Proportioned for 1280px */
     .currency-list {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
       flex: 1;
       justify-content: space-between;
     }
 
     .currency-row {
       display: grid;
-      grid-template-columns: 2.2fr 1fr 0.8fr 1.8fr;
+      grid-template-columns: 2.3fr 1fr 0.7fr 1.8fr;
       align-items: center;
-      padding: 7px 14px;
+      padding: 5.5px 14px;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
       font-variant-numeric: tabular-nums;
     }
 
@@ -137,34 +140,34 @@
     }
 
     .flag-icon {
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1;
     }
 
     .curr-fullname {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       letter-spacing: 0.2px;
     }
 
     .curr-code {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.75);
       background: rgba(255, 255, 255, 0.08);
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 4px;
       width: fit-content;
     }
 
     .curr-unit {
-      font-size: 13px;
+      font-size: 12.5px;
       color: rgba(255, 255, 255, 0.65);
     }
 
     .curr-rate {
       text-align: right;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: #f5d07c;
       letter-spacing: 0.5px;
@@ -177,18 +180,18 @@
       margin-right: 4px;
     }
 
-    /* Footer Marquee */
+    /* Footer & Ticker */
     .billboard-footer {
-      padding-top: 10px;
+      padding-top: 8px;
       border-top: 1px solid rgba(245, 208, 124, 0.25);
       text-align: center;
     }
 
     .notice-text {
-      font-size: 10.5px;
+      font-size: 10px;
       letter-spacing: 1px;
       color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       text-transform: uppercase;
     }
 
@@ -197,7 +200,7 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 50px;
       overflow: hidden;
-      padding: 7px 0;
+      padding: 6px 0;
     }
 
     .ticker-content {
@@ -205,7 +208,7 @@
       white-space: nowrap;
       animation: ticker 22s linear infinite;
       font-family: 'Cinzel', serif;
-      font-size: 11.5px;
+      font-size: 11px;
       letter-spacing: 2px;
       color: #f5d07c;
     }
@@ -218,14 +221,12 @@
 </head>
 <body>
 
-  <!-- Top Header -->
   <header class="header">
     <div class="casino-badge">Casino Taj • Pokhara</div>
     <h1 class="billboard-title">FOREIGN EXCHANGE RATES</h1>
-    <div class="display-date" id="billboard-date"></div>
+    <div class="display-date" id="billboard-date">02 NOVEMBER 2026</div>
   </header>
 
-  <!-- Column Headers -->
   <div class="table-headers">
     <div>Currency</div>
     <div>Code</div>
@@ -233,62 +234,91 @@
     <div class="header-right">Buying (NPR)</div>
   </div>
 
-  <!-- 19 Rates Grid -->
-  <div class="currency-list" id="currency-list"></div>
+  <div class="currency-list" id="currency-list">
+    <!-- 20 Currencies in Exact Sequence -->
+  </div>
 
-  <!-- Bottom Notice & Ticker -->
   <footer class="billboard-footer">
     <div class="notice-text">⚠ All foreign currency exchange is final • No reversals processed</div>
     <div class="ticker-wrapper">
       <div class="ticker-content">
-        WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST RATES GUARANTEED • ENJOY YOUR EXPERIENCE
+        WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST EXCHANGE RATES GUARANTEED • ENJOY YOUR EXPERIENCE
       </div>
     </div>
   </footer>
 
   <script>
+    // Exact sequence from your board with corrected spellings
     const currencyInfo = [
-      { code: "USD", name: "US Dollar", flag: "🇺🇸" },
-      { code: "EUR", name: "Euro", flag: "🇪🇺" },
-      { code: "GBP", name: "Pound Sterling", flag: "🇬🇧" },
-      { code: "KWD", name: "Kuwaiti Dinar", flag: "🇰🇼" },
-      { code: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
-      { code: "SGD", name: "Singapore Dollar", flag: "🇸🇬" },
-      { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦" },
-      { code: "AUD", name: "Australian Dollar", flag: "🇦🇺" },
-      { code: "AED", name: "UAE Dirham", flag: "🇦🇪" },
-      { code: "QAR", name: "Qatari Riyal", flag: "🇶🇦" },
-      { code: "SAR", name: "Saudi Riyal", flag: "🇸🇦" },
-      { code: "MYR", name: "Malaysian Ringgit", flag: "🇲🇾" },
-      { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
-      { code: "DKK", name: "Danish Krone", flag: "🇩🇰" },
-      { code: "HKD", name: "Hong Kong Dollar", flag: "🇭🇰" },
-      { code: "SEK", name: "Swedish Krona", flag: "🇸🇪" },
-      { code: "THB", name: "Thai Baht", flag: "🇹🇭" },
-      { code: "JPY", name: "Japanese Yen", flag: "🇯🇵" },
-      { code: "KRW", name: "South Korean Won", flag: "🇰🇷" }
+      { code: "USD", name: "US Dollar", flag: "🇺🇸", unit: 1 },
+      { code: "INR", name: "Indian Rupee", flag: "🇮🇳", unit: 1 },
+      { code: "EUR", name: "Euro", flag: "🇪🇺", unit: 1 },
+      { code: "GBP", name: "Pound Sterling", flag: "🇬🇧", unit: 1 },
+      { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳", unit: 1 },
+      { code: "MYR", name: "Malaysian Ringgit", flag: "🇲🇾", unit: 1 },
+      { code: "AED", name: "UAE Dirham", flag: "🇦🇪", unit: 1 },
+      { code: "JPY", name: "Japanese Yen", flag: "🇯🇵", unit: 1 },
+      { code: "AUD", name: "Australian Dollar", flag: "🇦🇺", unit: 1 },
+      { code: "SGD", name: "Singapore Dollar", flag: "🇸🇬", unit: 1 },
+      { code: "HKD", name: "Hong Kong Dollar", flag: "🇭🇰", unit: 1 },
+      { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦", unit: 1 },
+      { code: "CHF", name: "Swiss Franc", flag: "🇨🇭", unit: 1 },
+      { code: "SAR", name: "Saudi Riyal", flag: "🇸🇦", unit: 1 },
+      { code: "QAR", name: "Qatari Riyal", flag: "🇶🇦", unit: 1 },
+      { code: "THB", name: "Thai Baht", flag: "🇹🇭", unit: 1 },
+      { code: "KRW", name: "South Korean Won", flag: "🇰🇷", unit: 1 },
+      { code: "SEK", name: "Swedish Krona", flag: "🇸🇪", unit: 1 },
+      { code: "DKK", name: "Danish Krone", flag: "🇩🇰", unit: 1 },
+      { code: "KWD", name: "Kuwaiti Dinar", flag: "🇰🇼", unit: 1 }
     ];
 
-    // Set Date
-    document.getElementById('billboard-date').textContent = TODAY_DATE;
+    function renderBoard() {
+      document.getElementById('billboard-date').textContent = TODAY_DATE;
+      const container = document.getElementById('currency-list');
+      container.innerHTML = '';
 
-    // Render 19 items cleanly
-    const container = document.getElementById('currency-list');
-    currencyInfo.forEach(item => {
-      const rate = RATES[item.code] || "0.00";
-      const row = document.createElement('div');
-      row.className = 'currency-row';
-      row.innerHTML = `
-        <div class="curr-name-box">
-          <span class="flag-icon">${item.flag}</span>
-          <span class="curr-fullname">${item.name}</span>
-        </div>
-        <div><span class="curr-code">${item.code}</span></div>
-        <div class="curr-unit">1</div>
-        <div class="curr-rate"><small>NPR</small>${rate}</div>
-      `;
-      container.appendChild(row);
-    });
+      currencyInfo.forEach(item => {
+        const rate = RATES[item.code] || "0.00";
+        const row = document.createElement('div');
+        row.className = 'currency-row';
+        row.innerHTML = `
+          <div class="curr-name-box">
+            <span class="flag-icon">${item.flag}</span>
+            <span class="curr-fullname">${item.name}</span>
+          </div>
+          <div><span class="curr-code">${item.code}</span></div>
+          <div class="curr-unit">${item.unit}</div>
+          <div class="curr-rate"><small>NPR</small>${rate}</div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    // Auto-fetch from Google Sheets if URL is provided
+    async function syncGoogleSheet() {
+      if (!GOOGLE_SHEET_CSV_URL) return;
+      try {
+        const res = await fetch(GOOGLE_SHEET_CSV_URL + '&t=' + Date.now());
+        const csv = await res.text();
+        const lines = csv.split('\n');
+        
+        lines.forEach(line => {
+          const [key, val] = line.split(',').map(s => s ? s.trim().replace(/"/g, '') : '');
+          if (key === 'DATE' && val) TODAY_DATE = val;
+          if (RATES[key] !== undefined && val) RATES[key] = val;
+        });
+
+        renderBoard();
+      } catch (err) {
+        console.log("Using cached rates");
+      }
+    }
+
+    renderBoard();
+    if (GOOGLE_SHEET_CSV_URL) {
+      syncGoogleSheet();
+      setInterval(syncGoogleSheet, 30000); // Checks for sheet changes every 30 seconds
+    }
   </script>
 </body>
 </html>
