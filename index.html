@@ -11,31 +11,31 @@
     // =========================================================================
     // 🔗 PASTE YOUR GOOGLE SHEET CSV LINK HERE:
     // =========================================================================
-    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQD5yVDmGDHI75gPZURHrzf7JbmeFmvmwSVNBszzvn1gv9ncYbPV38srsZ6tIuwpWUHnoaZf2Ju81Xe/pub?output=csv"; 
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQD5yVDmGDHI75gPZURHrzf7JbmeFmvmwSVNBszzvn1gv9ncYbPV38srsZ6tIuwpWUHnoaZf2Ju81Xe/pub?output=csv";
 
     // Fallback defaults
-    let TODAY_DATE = "02 NOVEMBER 2026";
+    let TODAY_DATE = "24 NOVEMBER 2026";
     let RATES = {
-      USD: "149.00",
-      INR: "1.60",
-      EUR: "166.00",
-      GBP: "200.00",
-      CNY: "22.00",
-      MYR: "36.00",
-      AED: "40.00",
-      JPY: "0.90",
-      AUD: "104.00",
-      SGD: "116.00",
+      USD: "145.00",
+      INR: "1.50",
+      EUR: "158.00",
+      GBP: "190.00",
+      CNY: "21.00",
+      MYR: "34.00",
+      AED: "39.00",
+      JPY: "0.84",
+      AUD: "97.00",
+      SGD: "112.00",
       HKD: "18.00",
-      CAD: "106.00",
-      CHF: "180.00",
-      SAR: "39.00",
-      QAR: "40.00",
+      CAD: "101.00",
+      CHF: "171.00",
+      SAR: "38.00",
+      QAR: "39.00",
       THB: "3.00",
-      KRW: "0.10",
-      SEK: "14.00",
-      DKK: "22.00",
-      KWD: "480.00"
+      KRW: "0.09",
+      SEK: "13.00",
+      DKK: "20.00",
+      KWD: "468.00"
     };
   </script>
 
@@ -208,7 +208,7 @@
   <header class="header">
     <div class="casino-badge">Casino Taj • Pokhara</div>
     <h1 class="billboard-title">FOREIGN EXCHANGE RATES</h1>
-    <div class="display-date" id="billboard-date">02 NOVEMBER 2026</div>
+    <div class="display-date" id="billboard-date">24 NOVEMBER 2026</div>
   </header>
 
   <div class="table-headers">
@@ -253,6 +253,31 @@
       { code: "KWD", name: "Kuwaiti Dinar", flag: "🇰🇼", unit: 1 }
     ];
 
+    function parseCSVLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          if (inQuotes && line[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          result.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current.trim());
+      return result;
+    }
+
     function renderBoard() {
       document.getElementById('billboard-date').textContent = TODAY_DATE;
       const container = document.getElementById('currency-list');
@@ -275,29 +300,31 @@
       });
     }
 
-    // Fixed parser: Pulls Rate specifically from Column C (index 2)
     async function syncGoogleSheet() {
       if (!GOOGLE_SHEET_CSV_URL || GOOGLE_SHEET_CSV_URL.includes("PASTE_YOUR_LINK_HERE")) return;
       try {
-        const res = await fetch(GOOGLE_SHEET_CSV_URL + (GOOGLE_SHEET_CSV_URL.includes('?') ? '&' : '?') + 't=' + Date.now());
-        const csv = await res.text();
-        const lines = csv.split('\n');
-        
-        lines.forEach(line => {
-          if (!line.trim()) return;
-          const parts = line.split(',').map(s => s ? s.trim().replace(/^["']|["']$/g, '') : '');
-          const code = parts[0]?.toUpperCase();
+        const sep = GOOGLE_SHEET_CSV_URL.includes('?') ? '&' : '?';
+        const res = await fetch(`${GOOGLE_SHEET_CSV_URL}${sep}t=${Date.now()}`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-          // Date is in Column B (parts[1])
-          if (code === 'DATE' && parts[1]) {
-            TODAY_DATE = parts[1];
-          } 
-          // Rate is in Column C (parts[2])
-          else if (code && RATES.hasOwnProperty(code)) {
-            const rawRate = parts[2];
-            if (rawRate !== undefined && rawRate !== '') {
-              const num = parseFloat(rawRate);
-              RATES[code] = !isNaN(num) ? num.toFixed(2) : rawRate;
+        const csv = await res.text();
+        const lines = csv.split(/\r?\n/);
+
+        lines.forEach((line, idx) => {
+          if (!line.trim()) return;
+          const parts = parseCSVLine(line);
+          const colA = (parts[0] || '').toUpperCase();
+          const colB = parts[1] || '';
+          const colC = parts[2] || '';
+
+          // Date row: either colA is 'DATE', or row 1 has a date in colB
+          if ((colA === 'DATE' || idx === 0) && colB) {
+            TODAY_DATE = colB;
+          } else if (colA && RATES.hasOwnProperty(colA)) {
+            const cleanRate = colC.replace(/,/g, '');
+            if (cleanRate !== '') {
+              const num = parseFloat(cleanRate);
+              RATES[colA] = !isNaN(num) ? num.toFixed(2) : colC;
             }
           }
         });
@@ -311,7 +338,7 @@
     renderBoard();
     if (GOOGLE_SHEET_CSV_URL && !GOOGLE_SHEET_CSV_URL.includes("PASTE_YOUR_LINK_HERE")) {
       syncGoogleSheet();
-      setInterval(syncGoogleSheet, 30000); // Auto-syncs every 30 seconds
+      setInterval(syncGoogleSheet, 30000);
     }
   </script>
 </body>
