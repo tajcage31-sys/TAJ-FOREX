@@ -1,40 +1,34 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Casino Taj Pokhara - Luxury Forex Billboard</title>
+  <title>Casino Taj Pokhara - Forex Board</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=JetBrains+Mono:wght@600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 
   <script>
     // =========================================================================
-    // 🔗 GOOGLE SHEET CSV LINK
+    // 🔗 PASTE YOUR GOOGLE SHEET CSV LINK HERE:
     // =========================================================================
     const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQD5yVDmGDHI75gPZURHrzf7JbmeFmvmwSVNBszzvn1gv9ncYbPV38srsZ6tIuwpWUHnoaZf2Ju81Xe/pub?output=csv";
 
     // Fallback defaults
-    let TODAY_DATE = "27 NOVEMBER 2026";
-    let UNITS = {
-      USD: 1, INR: 1, EUR: 1, GBP: 1, CNY: 1,
-      MYR: 1, AED: 1, JPY: 1, AUD: 1, SGD: 1,
-      HKD: 1, CAD: 1, CHF: 1, SAR: 1, QAR: 1,
-      THB: 1, KRW: 1, SEK: 1, DKK: 1, KWD: 1
-    };
+    let TODAY_DATE = "24 NOVEMBER 2026";
     let RATES = {
       USD: "145.00",
       INR: "1.50",
-      EUR: "159.00",
+      EUR: "158.00",
       GBP: "190.00",
       CNY: "21.00",
       MYR: "34.00",
       AED: "39.00",
-      JPY: "0.83",
+      JPY: "0.84",
       AUD: "97.00",
       SGD: "112.00",
       HKD: "18.00",
       CAD: "101.00",
-      CHF: "172.00",
+      CHF: "171.00",
       SAR: "38.00",
       QAR: "39.00",
       THB: "3.00",
@@ -43,220 +37,80 @@
       DKK: "20.00",
       KWD: "468.00"
     };
-    let RATE_TRENDS = {}; // 'up', 'down', or null
   </script>
 
   <style>
-    :root {
-      --gold-light: #fff0b8;
-      --gold-main: #f5d07c;
-      --gold-deep: #c6932b;
-      --crimson-bright: #5e0b15;
-      --crimson-mid: #2c0409;
-      --crimson-dark: #120103;
-      --glass-bg: rgba(255, 255, 255, 0.045);
-      --glass-border: rgba(245, 208, 124, 0.16);
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Exact 720 x 1280 Portrait Billboard Canvas */
+    /* Exact 720 x 1280 Canvas */
     body {
-      position: relative;
       width: 720px;
       height: 1280px;
       margin: 0 auto;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 10%, var(--crimson-bright) 0%, var(--crimson-mid) 52%, var(--crimson-dark) 100%);
+      background: radial-gradient(circle at 50% 15%, #4a0910 0%, #290408 55%, #140204 100%);
       color: #ffffff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 14px 18px 12px;
-      user-select: none;
+      padding: 16px 18px 12px;
     }
 
-    /* Outer Luxury Gold Frame */
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(245, 208, 124, 0.35);
-      border-radius: 12px;
-      pointer-events: none;
-      box-shadow: inset 0 0 35px rgba(245, 208, 124, 0.08);
-      z-index: 20;
-    }
-
-    /* Ambient Spotlight Sweep across background */
-    .ambient-glow {
-      position: absolute;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 680px;
-      height: 360px;
-      background: radial-gradient(ellipse at center, rgba(245, 208, 124, 0.16) 0%, transparent 70%);
-      animation: breatheGlow 6s ease-in-out infinite alternate;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes breatheGlow {
-      0% { opacity: 0.55; transform: translateX(-50%) scale(0.95); }
-      100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-    }
-
-    /* Floating Gold Particles Canvas */
-    #gold-particles {
-      position: absolute;
-      inset: 0;
-      width: 720px;
-      height: 1280px;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Header Section */
     .header {
-      position: relative;
-      z-index: 5;
       text-align: center;
       padding-bottom: 8px;
-      border-bottom: 1px solid rgba(245, 208, 124, 0.28);
-    }
-
-    .top-status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 6px 4px;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    .live-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(52, 211, 153, 0.45);
-      color: #6ee7b7;
-      padding: 2px 10px;
-      border-radius: 50px;
-      font-size: 9.5px;
-      letter-spacing: 1.8px;
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #34d399;
-      box-shadow: 0 0 8px #34d399;
-      animation: pulseDot 1.6s infinite;
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.5); opacity: 0.4; }
-    }
-
-    .npt-clock {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--gold-main);
-      font-size: 11px;
-    }
-
-    .brand-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 2px;
-    }
-
-    .casino-crest {
-      width: 30px;
-      height: 30px;
-      filter: drop-shadow(0 2px 6px rgba(245, 208, 124, 0.45));
+      border-bottom: 1px solid rgba(245, 208, 124, 0.25);
     }
 
     .casino-badge {
       display: inline-block;
-      background: linear-gradient(90deg, rgba(245,208,124,0.08), rgba(245,208,124,0.22), rgba(245,208,124,0.08));
-      border: 1px solid rgba(245, 208, 124, 0.45);
-      padding: 3px 18px;
+      background: rgba(245, 208, 124, 0.12);
+      border: 1px solid rgba(245, 208, 124, 0.4);
+      padding: 3px 16px;
       border-radius: 50px;
       font-family: 'Cinzel', serif;
-      font-size: 11.5px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      color: var(--gold-main);
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      color: #f5d07c;
+      margin-bottom: 4px;
     }
 
-    /* Shimmering Metallic Billboard Title */
     .billboard-title {
       font-family: 'Cinzel', serif;
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: 2.5px;
-      background: linear-gradient(
-        110deg,
-        #d9a74a 15%,
-        #fff6d1 35%,
-        #ffffff 45%,
-        #f5d07c 55%,
-        #c6932b 85%
-      );
-      background-size: 220% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: goldShimmer 5.5s linear infinite;
-      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.65));
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.6);
       margin-bottom: 2px;
-    }
-
-    @keyframes goldShimmer {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
     }
 
     .display-date {
       font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      color: var(--gold-light);
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #f5d07c;
       text-transform: uppercase;
     }
 
-    /* Table Headers */
     .table-headers {
-      position: relative;
-      z-index: 5;
       display: grid;
-      grid-template-columns: 2.35fr 0.9fr 0.65fr 1.9fr;
+      grid-template-columns: 2.3fr 1fr 0.7fr 1.8fr;
       padding: 6px 14px;
       font-size: 10.5px;
-      font-weight: 800;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.6px;
-      color: var(--gold-main);
-      background: linear-gradient(90deg, rgba(0,0,0,0.55), rgba(245,208,124,0.12), rgba(0,0,0,0.55));
-      border: 1px solid rgba(245, 208, 124, 0.25);
+      letter-spacing: 1.5px;
+      color: #f5d07c;
+      background: rgba(0, 0, 0, 0.35);
       border-radius: 6px;
-      margin: 7px 0 5px 0;
+      margin: 8px 0 4px 0;
     }
 
     .header-right { text-align: right; }
 
-    /* Currency List */
     .currency-list {
-      position: relative;
-      z-index: 5;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -265,62 +119,14 @@
     }
 
     .currency-row {
-      position: relative;
       display: grid;
-      grid-template-columns: 2.35fr 0.9fr 0.65fr 1.9fr;
+      grid-template-columns: 2.3fr 1fr 0.7fr 1.8fr;
       align-items: center;
-      padding: 5px 14px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.025) 100%);
+      padding: 5.5px 14px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-left: 3px solid rgba(245, 208, 124, 0.45);
       border-radius: 6px;
       font-variant-numeric: tabular-nums;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: rowCascadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    /* Subtle periodic light sweep across rows */
-    .currency-row::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(245, 208, 124, 0.07), transparent);
-      transform: skewX(-25deg);
-      animation: rowSweep 9s infinite;
-      animation-delay: var(--sweep-delay, 0s);
-      pointer-events: none;
-    }
-
-    @keyframes rowCascadeIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes rowSweep {
-      0%, 75% { left: -100%; }
-      100% { left: 160%; }
-    }
-
-    /* Highlight flash when a rate updates */
-    .currency-row.rate-updated {
-      animation: flashGoldRow 1.8s ease-out;
-    }
-
-    @keyframes flashGoldRow {
-      0% {
-        background: rgba(245, 208, 124, 0.38);
-        border-color: #fff0b8;
-        box-shadow: 0 0 18px rgba(245, 208, 124, 0.5);
-      }
-      100% {
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.025) 100%);
-        border-color: rgba(255, 255, 255, 0.08);
-        box-shadow: none;
-      }
     }
 
     .curr-name-box {
@@ -329,185 +135,80 @@
       gap: 10px;
     }
 
-    .flag-icon {
-      font-size: 18px;
-      line-height: 1;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));
-    }
-
-    .curr-fullname {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #f8fafc;
-    }
+    .flag-icon { font-size: 18px; line-height: 1; }
+    .curr-fullname { font-size: 13.5px; font-weight: 600; }
 
     .curr-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: var(--gold-light);
-      background: rgba(245, 208, 124, 0.12);
-      border: 1px solid rgba(245, 208, 124, 0.25);
-      padding: 2px 7px;
+      color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
       border-radius: 4px;
       width: fit-content;
     }
 
-    .curr-unit {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.7);
-    }
+    .curr-unit { font-size: 12.5px; color: rgba(255, 255, 255, 0.65); }
 
     .curr-rate {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 16.5px;
+      text-align: right;
+      font-size: 16px;
       font-weight: 700;
-      color: var(--gold-main);
-      text-shadow: 0 0 10px rgba(245, 208, 124, 0.25);
+      color: #f5d07c;
+      letter-spacing: 0.5px;
     }
 
     .curr-rate small {
-      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.55);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      margin-right: 4px;
     }
 
-    /* Split-flap flip effect on number update */
-    .rate-digits {
-      display: inline-block;
-    }
-
-    .rate-digits.flip-in {
-      animation: digitFlip 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    @keyframes digitFlip {
-      0% { transform: perspective(300px) rotateX(-85deg); opacity: 0.2; color: #ffffff; }
-      60% { transform: perspective(300px) rotateX(12deg); opacity: 1; color: #ffffff; }
-      100% { transform: perspective(300px) rotateX(0deg); opacity: 1; }
-    }
-
-    .trend-badge {
-      font-size: 9.5px;
-      font-weight: 800;
-      width: 14px;
-      text-align: center;
-    }
-    .trend-up { color: #34d399; text-shadow: 0 0 6px rgba(52, 211, 153, 0.6); }
-    .trend-down { color: #f87171; text-shadow: 0 0 6px rgba(248, 113, 113, 0.6); }
-    .trend-flat { color: transparent; }
-
-    /* Footer & Seamless Dual-Track Marquee */
     .billboard-footer {
-      position: relative;
-      z-index: 5;
-      padding-top: 7px;
-      border-top: 1px solid rgba(245, 208, 124, 0.28);
+      padding-top: 8px;
+      border-top: 1px solid rgba(245, 208, 124, 0.25);
       text-align: center;
     }
 
     .notice-text {
       font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.1px;
-      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.8);
       margin-bottom: 6px;
       text-transform: uppercase;
     }
 
     .ticker-wrapper {
-      position: relative;
-      display: flex;
-      overflow: hidden;
-      background: linear-gradient(90deg, rgba(0,0,0,0.65), rgba(35,5,9,0.85), rgba(0,0,0,0.65));
-      border: 1px solid rgba(245, 208, 124, 0.3);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 50px;
+      overflow: hidden;
       padding: 6px 0;
-      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.75);
     }
 
-    /* Fade edges of marquee */
-    .ticker-wrapper::before,
-    .ticker-wrapper::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 36px;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .ticker-wrapper::before { left: 0; background: linear-gradient(90deg, #140204, transparent); }
-    .ticker-wrapper::after { right: 0; background: linear-gradient(-90deg, #140204, transparent); }
-
-    .ticker-track {
-      display: flex;
+    .ticker-content {
+      display: inline-block;
       white-space: nowrap;
-      will-change: transform;
-      animation: seamlessTicker 26s linear infinite;
-    }
-
-    .ticker-item {
+      animation: ticker 22s linear infinite;
       font-family: 'Cinzel', serif;
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 2.2px;
-      color: var(--gold-main);
-      padding-right: 36px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #f5d07c;
     }
 
-    @keyframes seamlessTicker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
 <body>
 
-  <div class="ambient-glow"></div>
-  <canvas id="gold-particles" width="720" height="1280"></canvas>
-
   <header class="header">
-    <div class="top-status-bar">
-      <div class="live-pill">
-        <span class="live-dot"></span>
-        <span>LIVE COUNTER RATES</span>
-      </div>
-      <div class="npt-clock" id="npt-clock">NPT 12:00:00 PM</div>
-    </div>
-
-    <div class="brand-row">
-      <!-- Custom Gold Crown & Spade Vector Asset -->
-      <svg class="casino-crest" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="crestGold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#fff0b8"/>
-            <stop offset="50%" stop-color="#f5d07c"/>
-            <stop offset="100%" stop-color="#b8821e"/>
-          </linearGradient>
-        </defs>
-        <polygon points="32,4 58,20 58,44 32,60 6,44 6,20" stroke="url(#crestGold)" stroke-width="2.5" fill="rgba(245,208,124,0.08)"/>
-        <path d="M16 39L20 23L28 31L32 19L36 31L44 23L48 39H16Z" fill="url(#crestGold)"/>
-        <rect x="16" y="42" width="32" height="3.5" rx="1.5" fill="url(#crestGold)"/>
-      </svg>
-
-      <div class="casino-badge">CASINO TAJ • POKHARA</div>
-
-      <svg class="casino-crest" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="32,4 58,20 58,44 32,60 6,44 6,20" stroke="url(#crestGold)" stroke-width="2.5" fill="rgba(245,208,124,0.08)"/>
-        <path d="M16 39L20 23L28 31L32 19L36 31L44 23L48 39H16Z" fill="url(#crestGold)"/>
-        <rect x="16" y="42" width="32" height="3.5" rx="1.5" fill="url(#crestGold)"/>
-      </svg>
-    </div>
-
+    <div class="casino-badge">Casino Taj • Pokhara</div>
     <h1 class="billboard-title">FOREIGN EXCHANGE RATES</h1>
-    <div class="display-date" id="billboard-date">27 NOVEMBER 2026</div>
+    <div class="display-date" id="billboard-date">24 NOVEMBER 2026</div>
   </header>
 
   <div class="table-headers">
@@ -520,89 +221,37 @@
   <div class="currency-list" id="currency-list"></div>
 
   <footer class="billboard-footer">
-    <div class="notice-text">⚠ All foreign currency exchange is final • No reversals processed at cage</div>
+    <div class="notice-text">⚠ All foreign currency exchange is final • No reversals processed</div>
     <div class="ticker-wrapper">
-      <div class="ticker-track">
-        <span class="ticker-item">✦ WELCOME TO CASINO TAJ POKHARA &nbsp;•&nbsp; PLAY BIG, WIN BIG &nbsp;•&nbsp; BEST EXCHANGE RATES GUARANTEED &nbsp;•&nbsp; 24/7 VIP CASHIER DESK</span>
-        <span class="ticker-item">✦ WELCOME TO CASINO TAJ POKHARA &nbsp;•&nbsp; PLAY BIG, WIN BIG &nbsp;•&nbsp; BEST EXCHANGE RATES GUARANTEED &nbsp;•&nbsp; 24/7 VIP CASHIER DESK</span>
+      <div class="ticker-content">
+        WELCOME TO CASINO TAJ POKHARA • PLAY BIG, WIN BIG • BEST RATES GUARANTEED • ENJOY YOUR EXPERIENCE
       </div>
     </div>
   </footer>
 
   <script>
     const currencyInfo = [
-      { code: "USD", name: "US Dollar", flag: "🇺🇸" },
-      { code: "INR", name: "Indian Rupee", flag: "🇮🇳" },
-      { code: "EUR", name: "Euro", flag: "🇪🇺" },
-      { code: "GBP", name: "Pound Sterling", flag: "🇬🇧" },
-      { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
-      { code: "MYR", name: "Malaysian Ringgit", flag: "🇲🇾" },
-      { code: "AED", name: "UAE Dirham", flag: "🇦🇪" },
-      { code: "JPY", name: "Japanese Yen", flag: "🇯🇵" },
-      { code: "AUD", name: "Australian Dollar", flag: "🇦🇺" },
-      { code: "SGD", name: "Singapore Dollar", flag: "🇸🇬" },
-      { code: "HKD", name: "Hong Kong Dollar", flag: "🇭🇰" },
-      { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦" },
-      { code: "CHF", name: "Swiss Franc", flag: "🇨🇭" },
-      { code: "SAR", name: "Saudi Riyal", flag: "🇸🇦" },
-      { code: "QAR", name: "Qatari Riyal", flag: "🇶🇦" },
-      { code: "THB", name: "Thai Baht", flag: "🇹🇭" },
-      { code: "KRW", name: "South Korean Won", flag: "🇰🇷" },
-      { code: "SEK", name: "Swedish Krona", flag: "🇸🇪" },
-      { code: "DKK", name: "Danish Krone", flag: "🇩🇰" },
-      { code: "KWD", name: "Kuwaiti Dinar", flag: "🇰🇼" }
+      { code: "USD", name: "US Dollar", flag: "🇺🇸", unit: 1 },
+      { code: "INR", name: "Indian Rupee", flag: "🇮🇳", unit: 1 },
+      { code: "EUR", name: "Euro", flag: "🇪🇺", unit: 1 },
+      { code: "GBP", name: "Pound Sterling", flag: "🇬🇧", unit: 1 },
+      { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳", unit: 1 },
+      { code: "MYR", name: "Malaysian Ringgit", flag: "🇲🇾", unit: 1 },
+      { code: "AED", name: "UAE Dirham", flag: "🇦🇪", unit: 1 },
+      { code: "JPY", name: "Japanese Yen", flag: "🇯🇵", unit: 1 },
+      { code: "AUD", name: "Australian Dollar", flag: "🇦🇺", unit: 1 },
+      { code: "SGD", name: "Singapore Dollar", flag: "🇸🇬", unit: 1 },
+      { code: "HKD", name: "Hong Kong Dollar", flag: "🇭🇰", unit: 1 },
+      { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦", unit: 1 },
+      { code: "CHF", name: "Swiss Franc", flag: "🇨🇭", unit: 1 },
+      { code: "SAR", name: "Saudi Riyal", flag: "🇸🇦", unit: 1 },
+      { code: "QAR", name: "Qatari Riyal", flag: "🇶🇦", unit: 1 },
+      { code: "THB", name: "Thai Baht", flag: "🇹🇭", unit: 1 },
+      { code: "KRW", name: "South Korean Won", flag: "🇰🇷", unit: 1 },
+      { code: "SEK", name: "Swedish Krona", flag: "🇸🇪", unit: 1 },
+      { code: "DKK", name: "Danish Krone", flag: "🇩🇰", unit: 1 },
+      { code: "KWD", name: "Kuwaiti Dinar", flag: "🇰🇼", unit: 1 }
     ];
-
-    // Live Nepal Time (Asia/Kathmandu UTC+5:45)
-    function updateClock() {
-      try {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('en-US', {
-          timeZone: 'Asia/Kathmandu',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true
-        });
-        document.getElementById('npt-clock').textContent = `NPT ${timeStr}`;
-      } catch (e) {
-        document.getElementById('npt-clock').textContent = new Date().toLocaleTimeString();
-      }
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Floating Gold Dust Particles
-    (function initParticles() {
-      const canvas = document.getElementById('gold-particles');
-      const ctx = canvas.getContext('2d');
-      const particles = Array.from({ length: 34 }, () => ({
-        x: Math.random() * 720,
-        y: Math.random() * 1280,
-        r: Math.random() * 2.1 + 0.6,
-        vy: -(Math.random() * 0.35 + 0.12),
-        vx: (Math.random() - 0.5) * 0.25,
-        alpha: Math.random() * 0.55 + 0.15
-      }));
-
-      function draw() {
-        ctx.clearRect(0, 0, 720, 1280);
-        for (const p of particles) {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.y < -10) { p.y = 1290; p.x = Math.random() * 720; }
-          if (p.x < 0) p.x = 720;
-          if (p.x > 720) p.x = 0;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(245, 208, 124, ${p.alpha})`;
-          ctx.fill();
-        }
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
 
     function parseCSVLine(line) {
       const result = [];
@@ -629,71 +278,26 @@
       return result;
     }
 
-    let isFirstRender = true;
-
-    function renderBoard(changedCodes = new Set()) {
+    function renderBoard() {
       document.getElementById('billboard-date').textContent = TODAY_DATE;
       const container = document.getElementById('currency-list');
+      container.innerHTML = '';
 
-      if (isFirstRender) {
-        container.innerHTML = '';
-        currencyInfo.forEach((item, index) => {
-          const rate = RATES[item.code] || "0.00";
-          const unit = UNITS[item.code] || 1;
-          const row = document.createElement('div');
-          row.className = 'currency-row';
-          row.id = `row-${item.code}`;
-          row.style.animationDelay = `${index * 35}ms`;
-          row.style.setProperty('--sweep-delay', `${index * 0.4}s`);
-
-          row.innerHTML = `
-            <div class="curr-name-box">
-              <span class="flag-icon">${item.flag}</span>
-              <span class="curr-fullname">${item.name}</span>
-            </div>
-            <div><span class="curr-code">${item.code}</span></div>
-            <div class="curr-unit" id="unit-${item.code}">${unit}</div>
-            <div class="curr-rate">
-              <small>NPR</small>
-              <span class="rate-digits" id="rate-${item.code}">${rate}</span>
-              <span class="trend-badge trend-flat" id="trend-${item.code}">•</span>
-            </div>
-          `;
-          container.appendChild(row);
-        });
-        isFirstRender = false;
-      } else {
-        currencyInfo.forEach(item => {
-          const unitEl = document.getElementById(`unit-${item.code}`);
-          const rateEl = document.getElementById(`rate-${item.code}`);
-          const rowEl = document.getElementById(`row-${item.code}`);
-          const trendEl = document.getElementById(`trend-${item.code}`);
-
-          if (unitEl) unitEl.textContent = UNITS[item.code] || 1;
-
-          if (changedCodes.has(item.code) && rateEl && rowEl) {
-            rateEl.textContent = RATES[item.code];
-
-            // Retrigger split-flap & gold row flash animation
-            rateEl.classList.remove('flip-in');
-            rowEl.classList.remove('rate-updated');
-            void rateEl.offsetWidth; // force reflow
-            rateEl.classList.add('flip-in');
-            rowEl.classList.add('rate-updated');
-
-            if (trendEl) {
-              const trend = RATE_TRENDS[item.code];
-              if (trend === 'up') {
-                trendEl.textContent = '▲';
-                trendEl.className = 'trend-badge trend-up';
-              } else if (trend === 'down') {
-                trendEl.textContent = '▼';
-                trendEl.className = 'trend-badge trend-down';
-              }
-            }
-          }
-        });
-      }
+      currencyInfo.forEach(item => {
+        const rate = RATES[item.code] || "0.00";
+        const row = document.createElement('div');
+        row.className = 'currency-row';
+        row.innerHTML = `
+          <div class="curr-name-box">
+            <span class="flag-icon">${item.flag}</span>
+            <span class="curr-fullname">${item.name}</span>
+          </div>
+          <div><span class="curr-code">${item.code}</span></div>
+          <div class="curr-unit">${item.unit}</div>
+          <div class="curr-rate"><small>NPR</small>${rate}</div>
+        `;
+        container.appendChild(row);
+      });
     }
 
     async function syncGoogleSheet() {
@@ -705,7 +309,6 @@
 
         const csv = await res.text();
         const lines = csv.split(/\r?\n/);
-        const changedCodes = new Set();
 
         lines.forEach((line, idx) => {
           if (!line.trim()) return;
@@ -714,38 +317,19 @@
           const colB = parts[1] || '';
           const colC = parts[2] || '';
 
-          // Extract 3-letter currency code from "US DOLLAR (USD)" -> "USD"
-          const codeMatch = colA.match(/\(([A-Z]{3})\)/);
-          const currencyCode = codeMatch ? codeMatch[1] : colA;
-
+          // Date row: either colA is 'DATE', or row 1 has a date in colB
           if ((colA === 'DATE' || idx === 0) && colB) {
             TODAY_DATE = colB;
-          } else if (currencyCode && RATES.hasOwnProperty(currencyCode)) {
-            // Update Unit if numeric
-            const unitNum = parseInt(colB.replace(/,/g, ''), 10);
-            if (!isNaN(unitNum) && unitNum > 0) {
-              UNITS[currencyCode] = unitNum;
-            }
-
-            // Update Rate ONLY if valid number (ignores typos like "santosh")
+          } else if (colA && RATES.hasOwnProperty(colA)) {
             const cleanRate = colC.replace(/,/g, '');
-            const num = parseFloat(cleanRate);
-            if (!isNaN(num) && num > 0) {
-              const formattedRate = num.toFixed(2);
-              const oldRate = parseFloat(RATES[currencyCode]);
-
-              if (RATES[currencyCode] !== formattedRate) {
-                if (!isNaN(oldRate)) {
-                  RATE_TRENDS[currencyCode] = num > oldRate ? 'up' : (num < oldRate ? 'down' : null);
-                }
-                RATES[currencyCode] = formattedRate;
-                changedCodes.add(currencyCode);
-              }
+            if (cleanRate !== '') {
+              const num = parseFloat(cleanRate);
+              RATES[colA] = !isNaN(num) ? num.toFixed(2) : colC;
             }
           }
         });
 
-        renderBoard(changedCodes);
+        renderBoard();
       } catch (err) {
         console.error("Sheet sync error:", err);
       }
@@ -754,7 +338,7 @@
     renderBoard();
     if (GOOGLE_SHEET_CSV_URL && !GOOGLE_SHEET_CSV_URL.includes("PASTE_YOUR_LINK_HERE")) {
       syncGoogleSheet();
-      setInterval(syncGoogleSheet, 30000); // Syncs every 30 seconds
+      setInterval(syncGoogleSheet, 30000);
     }
   </script>
 </body>
